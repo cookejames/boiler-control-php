@@ -1,0 +1,34 @@
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<?= $this->headTitle(); ?>
+
+<?= $this->headMeta(); ?>
+
+<?= $this->headStyle(); ?>
+
+<?= $this->headLink(); ?>
+
+<?= $this->headScript(); ?>
+
+<link rel="shortcut icon" href="<?php echo $this->baseUrl('/favicon.ico')?>" type="image/x-icon" />
+
+</head>
+<body>
+
+<?php echo $this->render('_topnav.phtml') ?>
+
+<div id="wrapper">
+
+<div id="content">
+<?= $this->layout()->content; ?>
+</div>
+
+<div id="footer">
+Created and maintained by <a href="http://www.cookeit.co.uk">Cooke IT Ltd</a>
+</div>
+
+</div>
+
+</body>
+</html>

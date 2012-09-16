@@ -1,0 +1,80 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tableContainer').jtable({
+            title: 'Schedules',
+            actions: {
+                listAction: '/api/schedules/schedule/get',
+                createAction: '/api/schedules/schedule/put',
+                updateAction: '/api/schedules/schedule/put',
+                deleteAction: '/api/schedules/schedule/delete'
+            },
+            fields: {
+                id: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                group: {
+                    title: 'Group',
+                    options: '/api/groups/group/get/display/options',
+                },
+                day: {
+                    title: 'Day',
+                    options: '/api/days',
+                },
+                hourOn: {
+                    title: 'Hour On',
+                    options: { <?php for($i=0;$i<24;$i++){echo"'$i':'$i',";}?> }
+                },
+                minuteOn: {
+                    title: 'Minute On',
+                    options: { <?php for($i=0;$i<60;$i++){echo"'$i':'$i',";}?> }
+                },
+                hourOff: {
+                    title: 'Hour Off',
+                    options: { <?php for($i=0;$i<24;$i++){echo"'$i':'$i',";}?> }
+                },
+                minuteOff: {
+                    title: 'Minute Off',
+                    options: { <?php for($i=0;$i<60;$i++){echo"'$i':'$i',";}?> }
+                },
+                heatingOn: {
+                    title: 'Heating On',
+                    type: 'checkbox',
+                    values: { '0': 'Off', '1': 'On' },
+                },
+                waterOn: {
+                    title: 'Water On',
+                    type: 'checkbox',
+                    values: { '0': 'Off', '1': 'On' },
+                },
+                enabled: {
+                    title: 'Enabled?',
+                    type: 'checkbox',
+                    values: { '0': 'No', '1': 'Yes' },
+                },
+            }
+        });
+ 
+        $('#tableContainer').jtable('load');
+    });
+</script>
+
+<div class="boost_table">
+<table>
+	<tr>
+		<td>Time:</td>
+		<td id="clock"></td>
+		<td>Hot Water Status:</td>
+		<td id="hwStatus" class="status"></td>
+		<td>Heating Status:</td>
+		<td id="heatingStatus" class="status"></td>
+		<td>Boost Water:</td>
+		<td class="status"><a href="#"><img id="waterBoost" src="/images/circle_power.png" /></a></td>
+		<td >Boost Heating:</td>
+		<td class="status"><a href="#"><img id="heatingBoost" src="/images/circle_power.png" /></a></td>
+	</tr>
+</table>
+</div>
+<div id="tableContainer"></div>

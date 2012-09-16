@@ -1,0 +1,5 @@
+<?php
+class Caramite_Resource_Configuration_Item extends SF_Model_Resource_Db_Table_Row_Abstract 
+	implements Caramite_Resource_Configuration_Item_Interface {
+	
+}

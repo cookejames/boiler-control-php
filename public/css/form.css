@@ -1,0 +1,58 @@
+/* CSS Forms */
+form {
+    padding: 0;
+    margin: 0;
+}
+fieldset {
+    margin: 0;
+    padding: .5em;
+    border: 1px solid #e5e5e5;
+}
+legend {
+/*	color: #1e303a;*/
+	font-size: 1.2em;
+	font-weight: bold;
+}
+label {
+    float: left;
+    text-align: left;
+    margin-right: 10px;
+    display: block;
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+dd { margin-bottom: 0.6em; }
+select {
+    border: 1px solid #d9d9d9;
+    width: 178px;
+    padding: 1px;
+	color: #7E8799;
+}
+input[type=text],input[type=password] {
+    border: 1px solid #d9d9d9;
+    width: 98%;
+    padding: 2px 3px;
+	color: #7e8799;
+}
+textarea {
+    border: 1px solid #d9d9d9;
+	width: 98%;
+	height: 7em;
+	padding: 2px 3px;
+	font: 1em Arial, Tahoma, sans-serif;
+	color: #7e8799;
+}
+ul.errors {
+    padding: 5px;
+    color: #d20037;
+    background: #fff url("/images/layout/form-error-box-bg.gif") repeat-x;
+}
+.errors li {
+	padding-left: 18px;
+    background: url("/images/layout/error-up-arrow.gif") no-repeat 0 50%;
+}
+form p.error {
+    padding: 5px !important;
+    color: #d20037;
+    background: #fff url("/images/layout/form-error-box-bg.gif") repeat-x;
+}

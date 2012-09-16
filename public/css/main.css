@@ -1,0 +1,125 @@
+/* Layout */
+#wrapper {
+	margin: 2em auto;
+	width: 100%;
+	border:0.1em solid #ef7227;
+}
+#navbar, #content {border-bottom:0.1em solid #ef7227;}
+#header {
+	padding: 0.8em 10px 0.8em 10px;
+	width: 900px;
+}
+#navbar { 
+	width: 100%;
+	height: 1.5em;
+	padding: 0;
+	margin: 0;
+	right: 0;
+	top: 0;
+	position: fixed;
+	z-index: 9999;
+	
+}
+#navbarInner {max-width: 750px; ; margin: 0 auto;}
+#content { 
+	width: 95%;
+	padding: 1em 0 1em 0;
+	margin: 0 auto;
+	max-width: 750px;
+}
+#footer { 
+	width: 900px;
+	padding: 10px;
+	border: 0px solid #ef7227;
+	margin: 0;
+
+}
+.container { width:100%; height:100% }
+
+/* Styles */
+body 
+{
+	background:url("/images/layout/background.png") repeat scroll left top grey;
+	font-family: arial, tahoma, sans-serif;
+	font-size: 0.8em;
+	text-align: justify;
+	color: #7e8799;
+}
+body	a {text-decoration:none}
+body	a:link {color: #7e8799 }
+body	a:visited {color: #7e8799 }
+body	a:hover {color: #7e8799; }
+body	img {border: none; }
+
+#wrapper {background-color: white;}
+#header {
+	background-color: white;
+	color: #7e8799;
+}
+#header a {color: #ef7227;}
+#navbar {
+	background-color: #464646;
+	color: #CCCCCC;
+	text-align: right;
+	font-size: 1.2em;
+	box-shadow: 0 8px 6px -6px black;
+}
+#navbar ol, ul {
+	list-style: none outside none;
+}
+#navbar li {
+    float: right;
+    position: relative;
+}
+#navbar a {
+    color: #EEEEEE;
+    display: block;
+	line-height: 1.5em;
+    padding: 0 0.8em;
+    text-decoration: none;
+}
+#navbar li:hover > a, #navbar ul ul *:hover > a, #navbar a:focus {
+    background: none repeat scroll 0 0 #EFEFEF;
+}
+#navbar li:hover > a, #navbar a:focus {
+    background: -moz-linear-gradient(#F9F9F9, #E5E5E5) repeat scroll 0 0 transparent;
+    color: #373737;
+}
+#content { 
+	background: white;
+}
+#footer {
+	font-size: 0.8em;
+	text-align: center;
+}
+#footer a { text-decoration:underline; }
+h1 {
+	color:#ef7227;
+	font-size:1.4em;
+	font-weight:bold;
+	text-align:center;
+}
+.orange {
+	color:#ef7227;
+	font-size:1.4em;
+	font-weight:bold;
+}
+
+.inline span{
+	width: 150px;
+}
+
+.status img{
+	width:20px;
+	height: 20px;
+}
+
+.boost_table td {
+	padding: 0 0.8em;
+}
+
+.table_button {
+	cursor: pointer;
+	height: 20px;
+	width: 20px;
+}
