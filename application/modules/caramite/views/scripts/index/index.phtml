@@ -2,6 +2,9 @@
     $(document).ready(function () {
         $('#tableContainer').jtable({
             title: 'Schedules',
+            selecting: true, //Enable selecting
+            multiselect: true, //Allow multiple selecting
+            selectingCheckboxes: true, //Show checkboxes on first column
             actions: {
                 listAction: '/api/schedules/list',
                 createAction: '/api/schedules/add',
@@ -59,80 +62,37 @@
         });
  
         $('#tableContainer').jtable('load');
+
+        $('#deleteAllButton').button().click(function () {
+            var text = '<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to delete the selected rows?';
+        	var $dialog = $('<div></div>')
+    		.html(text)
+    		.dialog({
+    			autoOpen: false,
+    			title: 'Are you sure?',
+    			close: function(ev, ui) { $(this).html(text); },
+    			modal: true,
+    			buttons: {
+    				"Delete items": function() {
+    					var $selectedRows = $('#tableContainer').jtable('selectedRows');
+    		            $('#tableContainer').jtable('deleteRows', $selectedRows);
+    					$( this ).dialog( "close" );
+    				},
+    				"Cancel": function() {
+    					$( this ).dialog( "close" );
+    				}
+    			}
+    		});
+    	
+    	$dialog.dialog('open');
+            
+        });
+        
+        $( "button" ).button();
     });
 </script>
 
-<div class="boost_table">
-<table>
-	<tr>
-		<td>Time:</td>
-		<td id="clock"></td>
-		<td>Hot Water Status:</td>
-		<td id="hwStatus" class="status"></td>
-		<td>Heating Status:</td>
-		<td id="heatingStatus" class="status"></td>
-		<td>Boost Water:</td>
-		<td class="status"><a href="#"><img id="waterBoost" src="/images/circle_power.png" /></a></td>
-		<td >Boost Heating:</td>
-		<td class="status"><a href="#"><img id="heatingBoost" src="/images/circle_power.png" /></a></td>
-	</tr>
-</table>
-</div>
+<?php echo $this->partial('partials/status.phtml'); ?>
 <div id="tableContainer"></div>
-<div id="accordion">
-	<?php $this->headScript()->appendFile('/js/jquery.form.js');?>
-	<?php $this->headScript()->appendFile('/js/multiAdd.js');?>
-	<h3><a href="#">Add multiple days at once</a></h3>
-	<div>
-		<form id="multiAdd" action="/api/schedules/multiadd/">
-		<p>Group: <br/>
-		<select name="group">
-		<?php $groups = $this->Group()->getGroups();
-		foreach ($groups as $group) :?>
-			<option value="<?php echo $group->id ?>"><?php echo $group->name ?></option>
-		<?php endforeach; ?>
-		</select>
-		</p>
-		<p>Days: <br/> 
-		<?php $days = $this->Day()->getArray();
-		foreach ($days as $value => $name) :?>
-			<?php echo $name ?>: <input name="day-<?php echo $value ?>" type="checkbox" value="1" /> 
-		<?php endforeach; ?>
-		</p>
-		<p>Hour On: <br/>
-		<select name="hourOn">
-		<?php for ($i = 0; $i < 24; $i++) :?>
-			<option value="<?php echo $i ?>"><?php echo $i ?></option>
-		<?php endfor; ?>
-		</select>
-		</p>
-		<p>Minute On: <br/> 
-		<select name="minuteOn">
-		<?php for ($i = 0; $i < 60; $i++) :?>
-			<option value="<?php echo $i ?>"><?php echo $i ?></option>
-		<?php endfor; ?>
-		</select>
-		</p>
-		<p>Hour Off: <br/>
-		<select name="hourOff">
-		<?php for ($i = 0; $i < 24; $i++) :?>
-			<option value="<?php echo $i ?>"><?php echo $i ?></option>
-		<?php endfor; ?>
-		</select>
-		</p>
-		<p>Minute Off: <br/> 
-		<select name="minuteOff">
-		<?php for ($i = 0; $i < 60; $i++) :?>
-			<option value="<?php echo $i ?>"><?php echo $i ?></option>
-		<?php endfor; ?>
-		</select>
-		</p>
-		<p>Heating On: <br/> <input name="heatingOn" type="checkbox" value="1" /></p>
-		<p>Water  On: <br/> <input name="waterOn" type="checkbox" value="1" /></p>
-		<p>Enabled: <br/> <input name="enabled" type="checkbox" value="1" /></p>
-		<p><input type="reset" value="Reset" />
-		<input type="submit" value="Save" /></p>
-		
-		</form>
-	</div>
-</div>
+<button id="deleteAllButton">Delete Selected Rows</button>
+<?php echo $this->partial('partials/multiadd.phtml'); ?>
