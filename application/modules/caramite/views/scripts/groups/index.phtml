@@ -3,10 +3,10 @@
         $('#tableContainer').jtable({
             title: 'Groups',
             actions: {
-                listAction: '/api/groups/group/get',
-                createAction: '/api/groups/group/put',
-                updateAction: '/api/groups/group/put',
-                deleteAction: '/api/groups/group/delete',
+                listAction: '/api/groups/list',
+                createAction: '/api/groups/add',
+                updateAction: '/api/groups/add',
+                deleteAction: '/api/groups/delete',
             },
             fields: {
                 id: {
@@ -30,10 +30,10 @@
                                     {
                             	title: 'Schedules',
                                 actions: {
-                                    listAction: '/api/schedules/schedule/get/group/' + data.record.id,
-                                    createAction: '/api/schedules/schedule/put',
-                                    updateAction: '/api/schedules/schedule/put',
-                                    deleteAction: '/api/schedules/schedule/delete'
+                                    listAction: '/api/schedules/list/group/' + data.record.id,
+                                    createAction: '/api/schedules/add',
+                                    updateAction: '/api/schedules/add',
+                                    deleteAction: '/api/schedules/delete'
                                 },
                                 fields: {
                                     id: {
@@ -45,12 +45,12 @@
                                     group: {
                                         title: 'Group',
                                         list: false,
-                                        options: '/api/groups/group/get/display/options',
+                                        options: '/api/groups/list/display/options',
                                         defaultValue: data.record.id,
                                     },
                                     day: {
                                         title: 'Day',
-                                        options: '/api/days',
+                                        options: '/api/days/list',
                                     },
                                     hourOn: {
                                         title: 'Hour On',
@@ -113,7 +113,7 @@
 							});
 						
                         $img.click(function () {
-    						$.getJSON("/schedules/setenabled/group/" + data.record.id + "/value/1", function(json) {
+    						$.getJSON("/api/schedules/setenabled/group/" + data.record.id + "/value/1", function(json) {
     							if (json.Result == "OK") {
     								$dialog.html("Group enabled");
     							} else {
@@ -145,7 +145,7 @@
 							});
 						
                         $img.click(function () {
-    						$.getJSON("/schedules/setenabled/group/" + data.record.id + "/value/0", function(json) {
+    						$.getJSON("/api/schedules/setenabled/group/" + data.record.id + "/value/0", function(json) {
     							if (json.Result == "OK") {
     								$dialog.html("Group disabled");
     							} else {

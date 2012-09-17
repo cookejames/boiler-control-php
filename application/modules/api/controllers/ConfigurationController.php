@@ -1,17 +1,17 @@
 <?php
-class Caramite_ConfigurationController extends Zend_Controller_Action
+class Api_ConfigurationController extends Zend_Controller_Action
 {
 	protected $_model;
 	
 	public function init()
 	{
 		$this->_model = new Caramite_Model_Configuration();
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender();
 	}
 	
 	public function statusAction()
 	{
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
 		$get = $this->_getParam('get');
 		$key = "";
 	
@@ -32,13 +32,14 @@ class Caramite_ConfigurationController extends Zend_Controller_Action
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Invalid status choice";
 		}
-		echo Zend_Json::encode($output);
+		$json = Zend_Json::encode($output);
+		$this->getResponse()
+			->setHttpResponseCode(200)
+			->appendBody($json);
 	}
 	
 	public function boostAction()
 	{
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
 		$get = $this->_getParam('toggle');
 		$key = "";
 	
@@ -59,6 +60,9 @@ class Caramite_ConfigurationController extends Zend_Controller_Action
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Invalid toggle item";
 		}
-		echo Zend_Json::encode($output);
+		$json = Zend_Json::encode($output);
+		$this->getResponse()
+			->setHttpResponseCode(200)
+			->appendBody($json);
 	}
 }

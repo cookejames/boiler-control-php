@@ -1,5 +1,5 @@
 <?php
-class Api_SchedulesController extends Zend_Rest_Controller
+class Api_SchedulesController extends Zend_Controller_Action
 {
 	protected $_model;
 	public function init()
@@ -9,21 +9,8 @@ class Api_SchedulesController extends Zend_Rest_Controller
 		$this->_model = new Caramite_Model_Schedules();
 	}
 	
-	public function indexAction()
+	public function addAction()
 	{
-		$this->getResponse()
-		->setHttpResponseCode(200)
-		->appendBody("From indexAction()");
-	}
-	
-	public function putAction()
-	{
-		$action = $this->_getParam("schedule");
-		switch ($action) {
-			case "put": break;
-			case "get": return $this->getAction();
-			case "delete": return $this->deleteAction();
-		}
 		$params = $this->_getAllParams();
 		unset($params['schedule']);
 		unset($params['module']);
@@ -56,10 +43,59 @@ class Api_SchedulesController extends Zend_Rest_Controller
 			->setHttpResponseCode(200)
 			->appendBody($json);
 		}
-
+	}
+	
+	public function multiaddAction()
+	{
+		$params = $this->_getAllParams();
+		unset($params['schedule']);
+		unset($params['module']);
+		unset($params['controller']);
+		unset($params['action']);
+	
+		$error = "Save failed";
+		$result = false;
+		try {
+			$days = array();
+			foreach ($params as $key => $value) {
+				$pieces = explode("-", $key);
+				if (count($pieces) == 2 && $pieces[0] == "day") {
+					if ($value == 1) {
+						$days[] = $pieces[1];
+					}
+					unset($params[$key]);
+				}
+			}
+			if (count($days) > 0) {
+				foreach ($days as $day) {
+					$schedule = $params; //copy array
+					$schedule["day"] = $day;
+					$success = $this->_model->saveSchedule($schedule);
+					$result = ($success) ? true : false;
+				}
+			}
+			
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+		if ($result) {
+			$jTableResult = array();
+			$jTableResult['Result'] = "OK";
+			$json = Zend_Json::encode($jTableResult);
+			$this->getResponse()
+			->setHttpResponseCode(200)
+			->appendBody($json);
+		} else {
+			$jTableResult['Result'] = "ERROR";
+			$jTableResult['Message'] = $error;
+			$json = Zend_Json::encode($jTableResult);
+			$this->getResponse()
+			->setHttpResponseCode(200)
+			->appendBody($json);
+		}
 	}
 
-	public function getAction() 
+	public function listAction() 
 	{
 		$group = $this->_getParam("group");
 		$schedules = null;
@@ -78,19 +114,32 @@ class Api_SchedulesController extends Zend_Rest_Controller
 			->appendBody($json);
 	}
 
-	public function postAction() 
-	{
-		$this->getResponse()
-		->setHttpResponseCode(201)
-		->appendBody("From putAction()");
-	}
-
 	public function deleteAction() 
 	{
 		$id = $this->_getParam('id');
 		$this->_model->deleteSchedule($id);
 		$jTableResult['Result'] = "OK";
 		$json = Zend_Json::encode($jTableResult);
+		$this->getResponse()
+			->setHttpResponseCode(200)
+			->appendBody($json);
+	}
+	
+	public function setenabledAction()
+	{
+		$group = $this->_getParam('group');
+		$value = $this->_getParam('value');
+	
+		$output = array();
+		if (is_null($group) || is_null($value)) {
+			$output['Result'] = "ERROR";
+			$output['Message'] = "Group and value must be specified";
+		} else {
+			$output['Result'] = "OK";
+			$this->_model->setGroupEnabled($group, $value);
+		}
+	
+		$json = Zend_Json::encode($output);
 		$this->getResponse()
 			->setHttpResponseCode(200)
 			->appendBody($json);

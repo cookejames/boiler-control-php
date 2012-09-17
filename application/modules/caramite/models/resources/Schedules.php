@@ -16,7 +16,7 @@ class Caramite_Resource_Schedules extends SF_Model_Resource_Db_Table_Abstract
 	public function getSchedules()
 	{
 		$select = $this->select();
-		$select->order(array('enabled DESC', 'day ASC', 'group ASC', 'hourOn ASC', 'minuteOn ASC'));
+		$select->order(array('enabled DESC', 'group ASC', 'day ASC', 'hourOn ASC', 'minuteOn ASC'));
 		return $this->fetchAll($select);
 	}
 	

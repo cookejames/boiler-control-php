@@ -1,5 +1,5 @@
 <?php
-class Api_GroupsController extends Zend_Rest_Controller
+class Api_GroupsController extends Zend_Controller_Action
 {
 	private $_model;
 	public function init()
@@ -9,21 +9,8 @@ class Api_GroupsController extends Zend_Rest_Controller
 		$this->_helper->viewRenderer->setNoRender();
 	}
 	
-	public function indexAction()
+	public function addAction()
 	{
-		$this->getResponse()
-		->setHttpResponseCode(200)
-		->appendBody("From indexAction()");
-	}
-	
-	public function putAction()
-	{
-		$action = $this->_getParam("group");
-		switch ($action) {
-			case "put": break;
-			case "get": return $this->getAction();
-			case "delete": return $this->deleteAction();
-		}
 		$params = $this->_getAllParams();
 		unset($params['schedule']);
 		unset($params['module']);
@@ -59,7 +46,7 @@ class Api_GroupsController extends Zend_Rest_Controller
 	
 	}
 	
-	public function getAction()
+	public function listAction()
 	{
 		$jTableResult['Result'] = "OK";
 		
@@ -79,14 +66,6 @@ class Api_GroupsController extends Zend_Rest_Controller
 		$this->getResponse()
 		->setHttpResponseCode(200)
 		->appendBody($json);
-	}
-	
-
-	public function postAction()
-	{
-		$this->getResponse()
-		->setHttpResponseCode(201)
-		->appendBody("From postAction()");
 	}
 	
 	public function deleteAction()

@@ -1,27 +1,13 @@
 <?php
-class Api_DaysController extends Zend_Rest_Controller
+class Api_DaysController extends Zend_Controller_Action
 {
 	public function init()
 	{
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender();
 	}
-	
-	public function indexAction()
-	{
-		return $this->postAction();
-	}
-	
-	public function putAction()
-	{
 
-	}
-
-	public function getAction() 
-	{
-	}
-
-	public function postAction() 
+	public function listAction() 
 	{
 		$days = array();
 		for($i = 1; $i <= 7; $i++) {
@@ -34,10 +20,5 @@ class Api_DaysController extends Zend_Rest_Controller
 		$this->getResponse()
 		->setHttpResponseCode(200)
 		->appendBody($json);
-	}
-
-	public function deleteAction() 
-	{
-
 	}
 }

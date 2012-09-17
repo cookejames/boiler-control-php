@@ -3,10 +3,10 @@
         $('#tableContainer').jtable({
             title: 'Schedules',
             actions: {
-                listAction: '/api/schedules/schedule/get',
-                createAction: '/api/schedules/schedule/put',
-                updateAction: '/api/schedules/schedule/put',
-                deleteAction: '/api/schedules/schedule/delete'
+                listAction: '/api/schedules/list',
+                createAction: '/api/schedules/add',
+                updateAction: '/api/schedules/add',
+                deleteAction: '/api/schedules/delete'
             },
             fields: {
                 id: {
@@ -17,12 +17,12 @@
                 },
                 group: {
                     title: 'Group',
-                    options: '/api/groups/group/get/display/options',
+                    options: '/api/groups/list/display/options',
                     width: '15%',
                 },
                 day: {
                     title: 'Day',
-                    options: '/api/days',
+                    options: '/api/days/list',
                 },
                 hourOn: {
                     title: 'Hour On',
@@ -80,19 +80,59 @@
 </div>
 <div id="tableContainer"></div>
 <div id="accordion">
+	<?php $this->headScript()->appendFile('/js/jquery.form.js');?>
+	<?php $this->headScript()->appendFile('/js/multiAdd.js');?>
 	<h3><a href="#">Add multiple days at once</a></h3>
 	<div>
-		<form>
-		<p>Group: <br/> <span id="formGroup"></span></p>
-		<p>Days: <br/> <span id="formDays"></span></p>
-		<p>Hour On: <br/> <span id="formHourOn"></span></p>
-		<p>Minute On: <br/> <span id="formMinuteOn"></span></p>
-		<p>Hour Off: <br/> <span id="formHourOff"></span></p>
-		<p>Minute Off: <br/> <span id="formMinuteOff"></span></p>
+		<form id="multiAdd" action="/api/schedules/multiadd/">
+		<p>Group: <br/>
+		<select name="group">
+		<?php $groups = $this->Group()->getGroups();
+		foreach ($groups as $group) :?>
+			<option value="<?php echo $group->id ?>"><?php echo $group->name ?></option>
+		<?php endforeach; ?>
+		</select>
+		</p>
+		<p>Days: <br/> 
+		<?php $days = $this->Day()->getArray();
+		foreach ($days as $value => $name) :?>
+			<?php echo $name ?>: <input name="day-<?php echo $value ?>" type="checkbox" value="1" /> 
+		<?php endforeach; ?>
+		</p>
+		<p>Hour On: <br/>
+		<select name="hourOn">
+		<?php for ($i = 0; $i < 24; $i++) :?>
+			<option value="<?php echo $i ?>"><?php echo $i ?></option>
+		<?php endfor; ?>
+		</select>
+		</p>
+		<p>Minute On: <br/> 
+		<select name="minuteOn">
+		<?php for ($i = 0; $i < 60; $i++) :?>
+			<option value="<?php echo $i ?>"><?php echo $i ?></option>
+		<?php endfor; ?>
+		</select>
+		</p>
+		<p>Hour Off: <br/>
+		<select name="hourOff">
+		<?php for ($i = 0; $i < 24; $i++) :?>
+			<option value="<?php echo $i ?>"><?php echo $i ?></option>
+		<?php endfor; ?>
+		</select>
+		</p>
+		<p>Minute Off: <br/> 
+		<select name="minuteOff">
+		<?php for ($i = 0; $i < 60; $i++) :?>
+			<option value="<?php echo $i ?>"><?php echo $i ?></option>
+		<?php endfor; ?>
+		</select>
+		</p>
 		<p>Heating On: <br/> <input name="heatingOn" type="checkbox" value="1" /></p>
 		<p>Water  On: <br/> <input name="waterOn" type="checkbox" value="1" /></p>
 		<p>Enabled: <br/> <input name="enabled" type="checkbox" value="1" /></p>
-		<p><input type="submit" value="Save" /></p>
+		<p><input type="reset" value="Reset" />
+		<input type="submit" value="Save" /></p>
+		
 		</form>
 	</div>
 </div>

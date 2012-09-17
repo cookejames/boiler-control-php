@@ -99,8 +99,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $router->addRoute('short', $editRoute);
         
-        $restRoute = new Zend_Rest_Route($this->frontController, array(), array('api'));
+//         $restRoute = new Zend_Rest_Route($this->frontController, array(), array('api'));
         
-        $router->addRoute('rest', $restRoute);
+//         $router->addRoute('rest', $restRoute);
     }
 }
