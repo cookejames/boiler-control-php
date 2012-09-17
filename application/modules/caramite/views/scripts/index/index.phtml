@@ -18,6 +18,7 @@
                 group: {
                     title: 'Group',
                     options: '/api/groups/group/get/display/options',
+                    width: '15%',
                 },
                 day: {
                     title: 'Day',
@@ -78,3 +79,20 @@
 </table>
 </div>
 <div id="tableContainer"></div>
+<div id="accordion">
+	<h3><a href="#">Add multiple days at once</a></h3>
+	<div>
+		<form>
+		<p>Group: <br/> <span id="formGroup"></span></p>
+		<p>Days: <br/> <span id="formDays"></span></p>
+		<p>Hour On: <br/> <span id="formHourOn"></span></p>
+		<p>Minute On: <br/> <span id="formMinuteOn"></span></p>
+		<p>Hour Off: <br/> <span id="formHourOff"></span></p>
+		<p>Minute Off: <br/> <span id="formMinuteOff"></span></p>
+		<p>Heating On: <br/> <input name="heatingOn" type="checkbox" value="1" /></p>
+		<p>Water  On: <br/> <input name="waterOn" type="checkbox" value="1" /></p>
+		<p>Enabled: <br/> <input name="enabled" type="checkbox" value="1" /></p>
+		<p><input type="submit" value="Save" /></p>
+		</form>
+	</div>
+</div>

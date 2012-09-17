@@ -33,7 +33,9 @@ class Caramite_Model_Schedules extends SF_Model_Abstract
 	
 	public function saveSchedule(array $data) 
 	{
-		return $this->saveRow($data);
+		//Set some defaults
+		$defaults = array("heatingOn" => 0, "waterOn" => 0, "enabled" => 0);
+		return $this->saveRow($data, $defaults);
 	}
 	
 	private function saveRow(array $data, array $defaults = array()) 
@@ -58,7 +60,9 @@ class Caramite_Model_Schedules extends SF_Model_Abstract
 		
 		// apply any defaults
 		foreach ($defaults as $col => $value) {
-			$data[$col] = $value;
+			if (!key_exists($col, $data)) {
+				$data[$col] = $value;
+			}
 		}
 		
 		$row = null;
