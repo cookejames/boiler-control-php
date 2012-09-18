@@ -13,7 +13,7 @@ $(document).ready(function() {
     $('#multiAdd').ajaxForm({ 
         // dataType identifies the expected content type of the server response 
         dataType:  'json', 
- 
+        beforeSubmit: function() {$("#multiAddSubmit").attr('disabled', 'disabled');},
         // success identifies the function to invoke when the server response 
         // has been received 
         success:   processJson 
@@ -30,7 +30,7 @@ $(document).ready(function() {
         else if(json.Result == "ERROR") {
         	text = json.Message;
         }
-    	
+        $("#multiAddSubmit").removeAttr('disabled');
     	var $dialog = $('<div></div>')
     		.html(text)
     		.dialog({
@@ -40,5 +40,6 @@ $(document).ready(function() {
     		});
     	
     	$dialog.dialog('open');
+
     }
 });
