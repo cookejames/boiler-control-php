@@ -1,18 +1,12 @@
 function checkStatus() {
-	$.getJSON("/api/configuration/status/get/heating", function(json) {
+	$.getJSON("/api/configuration/status/", function(json) {
 		if(json.Result == "OK") {
-			if(json.Record == "true") {
+			if(json.Records.heating == "true") {
 				$('#heatingStatus').html('<img src="/images/circle_green.png" />');
 			} else {
 				$('#heatingStatus').html('<img src="/images/circle_red.png" />');
 			}
-		} else {
-			alert(json.Message);
-		}
-	});
-	$.getJSON("/api/configuration/status/get/water", function(json) {
-		if(json.Result == "OK") {
-			if(json.Record == "true") {
+			if(json.Records.water == "true") {
 				$('#hwStatus').html('<img src="/images/circle_green.png" />');
 			} else {
 				$('#hwStatus').html('<img src="/images/circle_red.png" />');

@@ -1,98 +1,67 @@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#tableContainer').jtable({
-            title: 'Schedules',
-            selecting: true, //Enable selecting
-            multiselect: true, //Allow multiple selecting
-            selectingCheckboxes: true, //Show checkboxes on first column
-            actions: {
-                listAction: '/api/schedules/list',
-                createAction: '/api/schedules/add',
-                updateAction: '/api/schedules/add',
-                deleteAction: '/api/schedules/delete'
-            },
-            fields: {
-                id: {
-                    key: true,
-                    create: false,
-                    edit: false,
-                    list: false
-                },
-                group: {
-                    title: 'Group',
-                    options: '/api/groups/list/display/options',
-                    width: '15%',
-                },
-                day: {
-                    title: 'Day',
-                    options: '/api/days/list',
-                },
-                hourOn: {
-                    title: 'Hour On',
-                    options: { <?php for($i=0;$i<24;$i++){echo"'$i':'$i',";}?> }
-                },
-                minuteOn: {
-                    title: 'Minute On',
-                    options: { <?php for($i=0;$i<60;$i++){echo"'$i':'$i',";}?> }
-                },
-                hourOff: {
-                    title: 'Hour Off',
-                    options: { <?php for($i=0;$i<24;$i++){echo"'$i':'$i',";}?> }
-                },
-                minuteOff: {
-                    title: 'Minute Off',
-                    options: { <?php for($i=0;$i<60;$i++){echo"'$i':'$i',";}?> }
-                },
-                heatingOn: {
-                    title: 'Heating On',
-                    type: 'checkbox',
-                    values: { '0': 'Off', '1': 'On' },
-                },
-                waterOn: {
-                    title: 'Water On',
-                    type: 'checkbox',
-                    values: { '0': 'Off', '1': 'On' },
-                },
-                enabled: {
-                    title: 'Enabled?',
-                    type: 'checkbox',
-                    values: { '0': 'No', '1': 'Yes' },
-                },
-            }
-        });
- 
-        $('#tableContainer').jtable('load');
-
-        $('#deleteAllButton').button().click(function () {
-            var text = '<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to delete the selected rows?';
-        	var $dialog = $('<div></div>')
-    		.html(text)
-    		.dialog({
-    			autoOpen: false,
-    			title: 'Are you sure?',
-    			close: function(ev, ui) { $(this).html(text); },
-    			modal: true,
-    			buttons: {
-    				"Delete items": function() {
-    					var $selectedRows = $('#tableContainer').jtable('selectedRows');
-    		            $('#tableContainer').jtable('deleteRows', $selectedRows);
-    					$( this ).dialog( "close" );
-    				},
-    				"Cancel": function() {
-    					$( this ).dialog( "close" );
-    				}
-    			}
-    		});
-    	
-    	$dialog.dialog('open');
-            
-        });
-        
-        $( "button" ).button();
-    });
-</script>
-
 <?php echo $this->partial('partials/status.phtml'); ?>
-<div id="tableContainer"></div>
-<button id="deleteAllButton">Delete Selected Rows</button>
-<?php echo $this->partial('partials/multiadd.phtml'); ?>
+
+<?php $this->headScript()->appendFile('/js/jquery-ui-timepicker-addon.js');?>
+<script type="text/javascript">
+function success(data) {
+	var text = "";
+	if (data.Result == "ERROR") {
+		text = "Error: " + data.Message;
+	} else {
+		text = "Holiday times set";
+	}
+
+	var $dialog = $('<div></div>')
+	.html(text)
+	.dialog({
+		autoOpen: false,
+		title: 'Setting holiday times',
+		close: function(ev, ui) { $(this).html(text); }
+	});
+
+	$dialog.dialog('open');
+
+	$.getJSON("/api/configuration/holidaytimes/", function(json) {
+		if(json.Result == "OK") {
+			$('#timeString').html(json.Message);
+		}
+	});
+};
+
+$(document).ready(function() { 
+	$( "#submit" ).button(); //style button
+	
+	//Create datetimepickers
+	$('#holidayFrom').datetimepicker();
+	$('#holidayTo').datetimepicker(); 
+
+	//Submit click functionality
+	$('#submit').click(function() {
+		$.ajax({
+			  type: 'POST',
+			  url: "/api/configuration/holiday/",
+			  data: {"from": $('#holidayFrom').datetimepicker('getDate'), 
+				  "to": $('#holidayTo').datetimepicker('getDate')},
+			  success: success,
+			  dataType: 'json',
+			});
+	});
+
+	//Accordian
+	$(function() {
+		$( "#holidayTimes" ).accordion({ collapsible: true, active: false });
+	});
+} );
+
+</script>
+<div id="holidayTimes">
+	<h3><a href="#">Current Holiday Times</a></h3>
+	<div>
+	<p id="timeString">From: <?php echo $this->holidayFrom ?> To: <?php echo $this->holidayTo ?></p>
+	</div>
+	<h3><a href="#">Set Holiday Times</a></h3>
+	<div>
+		Holiday From: <input type="text" id="holidayFrom" />
+		Holiday To: <input type="text" id="holidayTo" />
+		<button id="submit">Set Holiday</button>
+	</div>
+</div>

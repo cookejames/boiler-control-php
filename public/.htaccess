@@ -9,4 +9,15 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ /index.php [NC,L]
 
+AuthName "Authorized Users Only."
+
+AuthType Basic
+
+AuthUserFile /var/www/public/.htpasswd
+
+#generate extra passwords here
+#http://davidwalsh.name/web-development-tools
+#usernames are seperated by spaces
+require user boiler
+
 php_value include_path .:/var/www/telemarketing/public/:/var/www/telemarketing/:/var/www/telemarketing/application/:/usr/local/zend/share/ZendFramework/library:/usr/local/zend/share/pear:/var/www

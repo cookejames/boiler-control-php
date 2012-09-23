@@ -62,10 +62,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->_view->headMeta()->appendHttpEquiv('Content-Language', 'en-US');
 
         // set css links and a special import for the accessibility styles
-        $this->_view->headStyle()->setStyle('@import "/css/access.css";');
+//         $this->_view->headStyle()->setStyle('@import "/css/access.css";');
         $this->_view->headLink()->appendStylesheet('/css/reset.css');
         $this->_view->headLink()->appendStylesheet('/css/main.css');
-        $this->_view->headLink()->appendStylesheet('/css/form.css');
+//         $this->_view->headLink()->appendStylesheet('/css/form.css');
         
         $this->_view->headScript()->appendFile('/js/jquery-1.8.0.min.js');
         $this->_view->headScript()->appendFile('/js/jquery-ui-1.8.23.custom.min.js');
