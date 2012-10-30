@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.11.1deb1
+-- version 3.3.2deb1ubuntu1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2012 at 06:11 PM
--- Server version: 5.5.24
--- PHP Version: 5.4.4-2
+-- Generation Time: Oct 30, 2012 at 07:44 AM
+-- Server version: 5.1.63
+-- PHP Version: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -33,22 +32,6 @@ CREATE TABLE IF NOT EXISTS `configuration` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `configuration`
---
-
-INSERT INTO `configuration` (`key`, `value`, `type`) VALUES
-('boostTime', '60', 'int'),
-('heatingBoost', 'false', 'boolean'),
-('heatingBoostOffTime', '1347789155119', 'long'),
-('heatingStatus', 'false', 'boolean'),
-('holidayUntil', '1345970934722', 'long'),
-('toggleHeating', 'false', 'boolean'),
-('toggleWater', 'false', 'boolean'),
-('waterBoost', 'false', 'boolean'),
-('waterBoostOffTime', '1347777379911', 'long'),
-('waterStatus', 'false', 'boolean');
-
 -- --------------------------------------------------------
 
 --
@@ -71,27 +54,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   KEY `day` (`day`),
   KEY `minuteOn` (`minuteOn`),
   KEY `hourOn` (`hourOn`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=72 ;
-
---
--- Dumping data for table `schedule`
---
-
-INSERT INTO `schedule` (`id`, `group`, `day`, `hourOn`, `minuteOn`, `hourOff`, `minuteOff`, `heatingOn`, `waterOn`, `enabled`) VALUES
-(58, 1, 2, 5, 45, 6, 30, 0, 1, 1),
-(59, 1, 3, 5, 45, 6, 30, 0, 1, 1),
-(60, 1, 4, 5, 45, 6, 30, 0, 1, 1),
-(61, 1, 5, 5, 45, 6, 30, 0, 1, 1),
-(62, 1, 6, 5, 45, 6, 30, 0, 1, 1),
-(63, 1, 1, 17, 30, 18, 0, 0, 1, 1),
-(64, 1, 4, 17, 30, 18, 0, 0, 1, 1),
-(65, 1, 2, 17, 30, 18, 0, 0, 1, 1),
-(66, 1, 3, 17, 30, 18, 0, 0, 1, 1),
-(67, 1, 7, 5, 45, 6, 30, 0, 1, 1),
-(68, 1, 7, 17, 30, 18, 0, 0, 1, 1),
-(69, 1, 5, 17, 30, 18, 0, 0, 1, 1),
-(70, 1, 6, 17, 30, 18, 0, 0, 1, 1),
-(71, 1, 1, 5, 45, 6, 30, 0, 1, 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=98 ;
 
 -- --------------------------------------------------------
 
@@ -104,14 +67,7 @@ CREATE TABLE IF NOT EXISTS `schedule_groups` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `schedule_groups`
---
-
-INSERT INTO `schedule_groups` (`id`, `name`) VALUES
-(1, 'Normal');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Constraints for dumped tables
@@ -122,7 +78,3 @@ INSERT INTO `schedule_groups` (`id`, `name`) VALUES
 --
 ALTER TABLE `schedule`
   ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`group`) REFERENCES `schedule_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
