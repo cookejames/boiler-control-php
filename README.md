@@ -34,8 +34,8 @@ Download the source from github and copy it to the right directories
 <pre><code>wget https://github.com/james-jaynne/boiler-control-php/archive/master.zip
 unzip master.zip
 
-mysql --user=pi --pass=password pi < boiler-control-php-master/sql/structure.sql
-mysql --user=pi --pass=password pi < boiler-control-php-master/sql/data.sql
+mysql --user=pi --pass=password pi &lt; boiler-control-php-master/sql/structure.sql
+mysql --user=pi --pass=password pi &lt; boiler-control-php-master/sql/data.sql
 
 sudo rm -R /var/www/*
 sudo mv boiler-control-php-master/* /var/www
