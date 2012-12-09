@@ -2,14 +2,14 @@ function checkStatus() {
 	$.getJSON("/api/configuration/status/", function(json) {
 		if(json.Result == "OK") {
 			if(json.Records.heating == "true") {
-				$('#heatingStatus').html('<img src="/images/circle_green.png" />');
+				$('#heatingBoost').attr('src', '/images/on.png');
 			} else {
-				$('#heatingStatus').html('<img src="/images/circle_red.png" />');
+				$('#heatingBoost').attr('src', '/images/off.png');
 			}
 			if(json.Records.water == "true") {
-				$('#hwStatus').html('<img src="/images/circle_green.png" />');
+				$('#waterBoost').attr('src', '/images/on.png');
 			} else {
-				$('#hwStatus').html('<img src="/images/circle_red.png" />');
+				$('#waterBoost').attr('src', '/images/off.png');
 			}
 		} else {
 			alert(json.Message);

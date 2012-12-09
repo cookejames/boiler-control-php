@@ -60,6 +60,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // set the content type and language
         $this->_view->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
         $this->_view->headMeta()->appendHttpEquiv('Content-Language', 'en-US');
+        $this->_view->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0');
 
         // set css links and a special import for the accessibility styles
 //         $this->_view->headStyle()->setStyle('@import "/css/access.css";');

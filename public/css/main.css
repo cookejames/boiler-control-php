@@ -5,10 +5,6 @@
 	border:0.1em solid #ef7227;
 }
 #navbar, #content {border-bottom:0.1em solid #ef7227;}
-#header {
-	padding: 0.8em 10px 0.8em 10px;
-	width: 900px;
-}
 #navbar { 
 	width: 100%;
 	height: 1.5em;
@@ -28,7 +24,6 @@
 	max-width: 95%;
 }
 #footer { 
-	width: 900px;
 	padding: 10px;
 	border: 0px solid #ef7227;
 	margin: 0;
@@ -105,17 +100,16 @@ h1 {
 	font-weight:bold;
 }
 
-.inline span{
-	width: 150px;
+.boost_table img{
+	cursor: pointer;
 }
 
-.status img{
-	width:20px;
-	height: 20px;
+.boost_table {
+	font-size: 1.5em;
 }
 
 .boost_table td {
-	padding: 0 0.8em;
+	padding: 0 0.2em;
 }
 
 .table_button {

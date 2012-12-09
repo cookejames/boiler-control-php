@@ -55,13 +55,25 @@ $(document).ready(function() {
 </script>
 <div id="holidayTimes">
 	<h3><a href="#">Current Holiday Times</a></h3>
-	<div>
-	<p id="timeString">From: <?php echo $this->holidayFrom ?> To: <?php echo $this->holidayTo ?></p>
+	<div id="timeString">
+	From: <?php echo $this->holidayFrom ?>
+	To: <?php echo $this->holidayTo ?>
 	</div>
 	<h3><a href="#">Set Holiday Times</a></h3>
 	<div>
-		Holiday From: <input type="text" id="holidayFrom" />
-		Holiday To: <input type="text" id="holidayTo" />
-		<button id="submit">Set Holiday</button>
+	<table>
+		<tr>
+			<td>Holiday From:</td>
+			<td><input type="text" id="holidayFrom" /></td>
+		</tr>
+		<tr>
+			<td>Holiday To:</td>
+			<td><input type="text" id="holidayTo" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><button id="submit">Set Holiday</button></td>
+		</tr>
+	</table>
 	</div>
 </div>
