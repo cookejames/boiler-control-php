@@ -41,20 +41,21 @@ class Api_ConfigurationController extends Zend_Controller_Action
 	
 	public function boostAction()
 	{
-		$get = $this->_getParam('toggle');
+		
+		$data = $this->_getParam('toggle');
 		$key = "";
 	
 		$output = array();
-	
-		if (is_null($get)) {
+		if (is_null($data)) { //must have data
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Toggle must be specified";
-		}
-	
-		if ($get == "heating") {
+		} else if ($this->_request->getMethod() != "POST") { //must be post not get
+			$output['Result'] = "ERROR";
+			$output['Message'] = "Incorrect request method";
+		} else if ($data == "heating") {
 			$output['Result'] = "OK";
 			$this->_model->setConfiguration("toggleHeating", "true", "boolean");
-		} else if ($get == "water") {
+		} else if ($data == "water") {
 			$output['Result'] = "OK";
 			$this->_model->setConfiguration("toggleWater", "true", "boolean");
 		} else {

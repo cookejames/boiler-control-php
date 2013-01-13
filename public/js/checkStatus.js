@@ -31,26 +31,26 @@ $(document).ready(function() {
 		});
 
 	$('#heatingBoost').click(function() {
-		$.getJSON("/api/configuration/boost/toggle/heating", function(json) {
+		$.post("/api/configuration/boost/toggle/heating", function(json) {
 			if (json.Result == "OK") {
 				$dialog.html("Heating boost set");
 			} else {
 				$dialog.html("Oops something went wrong");
 			}
-		});
+		}, "json");
 		$dialog.dialog('open');
 		// prevent the default action, e.g., following a link
 		return false;
 	});
 
 	$('#waterBoost').click(function() {
-		$.getJSON("/api/configuration/boost/toggle/water", function(json) {
+		$.post("/api/configuration/boost/toggle/water", function(json) {
 			if (json.Result == "OK") {
 				$dialog.html("Hot water boost set");
 			} else {
 				$dialog.html("Oops something went wrong");
 			}
-		});
+		}, "json");
 		$dialog.dialog('open');
 		// prevent the default action, e.g., following a link
 		return false;
