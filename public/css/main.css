@@ -16,12 +16,12 @@
 	z-index: 9999;
 	
 }
-#navbarInner {max-width: 95%; ; margin: 0 auto;}
+#navbarInner {max-width: 900px; ; margin: 0 auto;}
 #content { 
 	width: 95%;
 	padding: 1em 0 1em 0;
 	margin: 0 auto;
-	max-width: 95%;
+	max-width: 900px;
 }
 #footer { 
 	padding: 10px;
