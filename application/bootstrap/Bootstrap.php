@@ -35,6 +35,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		);
     }
 
+    protected function _initConstants()
+    {
+    	$registry = Zend_Registry::getInstance();
+    	Zend_Registry::getInstance()->constants = new Zend_Config(
+    	$this->getApplication()
+    	->getOption('constants')
+    	);
+    }
+    
     /**
      * Setup locale
      */

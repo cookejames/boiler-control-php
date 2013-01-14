@@ -7,6 +7,7 @@ class Api_SocketsController extends Zend_Controller_Action
 	{
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender();
+		$this->_model = new Caramite_Model_Boost();
 	}
 
 	public function boostAction()
@@ -23,8 +24,7 @@ class Api_SocketsController extends Zend_Controller_Action
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Incorrect request method";
 		} else if ($data == "heating") {
-			$message = "boost heating 60";
-			$output['Result'] = $this->socketTest($message);
+			$output['Result'] = $this->_model->setBoostHeating("60");
 		} else if ($data == "water") {
 			$output['Result'] = "ERROR";
 			$output['Message'] = "EMPTY FOR NOW";
@@ -36,29 +36,5 @@ class Api_SocketsController extends Zend_Controller_Action
 		$this->getResponse()
 			->setHttpResponseCode(200)
 			->appendBody($json);
-	}
-	
-	private function socketTest($message) {
-		$PORT = 20000; // the port on which we are connecting to the "remote"
-		               // machine
-		$HOST = "192.168.11.110"; // the ip of the remote machine (in this case it's
-		                     // the same machine)
-		
-		$sock = socket_create ( AF_INET, SOCK_STREAM, 0 ) or 		// Creating a TCP socket
-		die ( "error: could not create socket\n" );
-		
-		$succ = socket_connect ( $sock, $HOST, $PORT ) or 		// Connecting to to server
-		                                            // using that socket
-		die ( "error: could not connect to host\n" );
-		
-		socket_write ( $sock, $message . "\n", strlen ( $message ) + 1 ) or 		// Writing the text
-		                                                     // to the socket
-		die ( "error: failed to write to socket\n" );
-		
-		$reply = socket_read ( $sock, 10000, PHP_NORMAL_READ ) or 		// Reading the reply
-		                                                    // from socket
-		die ( "error: failed to read from socket\n" );
-		
-		return $reply;
 	}
 }
