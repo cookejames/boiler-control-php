@@ -31,7 +31,7 @@ $(document).ready(function() {
 		});
 
 	$('#heatingBoost').click(function() {
-		$.post("/api/configuration/boost/toggle/heating", function(json) {
+		$.post("/api/sockets/boost/toggle/heating", function(json) {
 			if (json.Result == "OK") {
 				$dialog.html("Heating boost set");
 			} else {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 	});
 
 	$('#waterBoost').click(function() {
-		$.post("/api/configuration/boost/toggle/water", function(json) {
+		$.post("/api/sockets/boost/toggle/water", function(json) {
 			if (json.Result == "OK") {
 				$dialog.html("Hot water boost set");
 			} else {
