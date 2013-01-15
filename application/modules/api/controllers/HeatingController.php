@@ -1,5 +1,5 @@
 <?php
-class Api_SocketsController extends Zend_Controller_Action
+class Api_HeatingController extends Zend_Controller_Action
 {
 	protected $_model;
 	
@@ -7,7 +7,7 @@ class Api_SocketsController extends Zend_Controller_Action
 	{
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender();
-		$this->_model = new Caramite_Model_Boost();
+		$this->_model = new Caramite_Model_Heating();
 	}
 
 	public function boostAction()
@@ -24,17 +24,30 @@ class Api_SocketsController extends Zend_Controller_Action
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Incorrect request method";
 		} else if ($data == "heating") {
-			$output['Result'] = $this->_model->setBoostHeating("60");
+			$output = $this->_model->setBoostHeating("60");
 		} else if ($data == "water") {
-			$output['Result'] = "ERROR";
-			$output['Message'] = "EMPTY FOR NOW";
+			$output = $this->_model->setBoostWater("60");
 		} else {
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Invalid toggle item";
 		}
-		$json = Zend_Json::encode($output);
+		$json = "";
+		if (is_array($output)) {
+			$json = Zend_Json::encode($output);
+		} else {
+			$json = $output;
+		}
 		$this->getResponse()
 			->setHttpResponseCode(200)
 			->appendBody($json);
+	}
+	
+	public function statusAction()
+	{
+		$output = $this->_model->getStatus();
+
+		$this->getResponse()
+		->setHttpResponseCode(200)
+		->appendBody($output);
 	}
 }

@@ -1,12 +1,12 @@
 function checkStatus() {
-	$.getJSON("/api/configuration/status/", function(json) {
+	$.getJSON("/api/heating/status/", function(json) {
 		if(json.Result == "OK") {
-			if(json.Records.heating == "true") {
+			if(json.Heating == "ON") {
 				$('#heatingBoost').attr('src', '/images/on.png');
 			} else {
 				$('#heatingBoost').attr('src', '/images/off.png');
 			}
-			if(json.Records.water == "true") {
+			if(json.Water == "ON") {
 				$('#waterBoost').attr('src', '/images/on.png');
 			} else {
 				$('#waterBoost').attr('src', '/images/off.png');
@@ -31,7 +31,7 @@ $(document).ready(function() {
 		});
 
 	$('#heatingBoost').click(function() {
-		$.post("/api/sockets/boost/toggle/heating", function(json) {
+		$.post("/api/heating/boost/toggle/heating", function(json) {
 			if (json.Result == "OK") {
 				$dialog.html("Heating boost set");
 			} else {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 	});
 
 	$('#waterBoost').click(function() {
-		$.post("/api/sockets/boost/toggle/water", function(json) {
+		$.post("/api/heating/boost/toggle/water", function(json) {
 			if (json.Result == "OK") {
 				$dialog.html("Hot water boost set");
 			} else {

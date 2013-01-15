@@ -39,7 +39,6 @@ abstract class SF_Model_Resource_Socket_Abstract implements SF_Model_Resource_So
 		die ( "error: failed to read from socket\n" );
 	
 		socket_close($socket);
-	
 		return trim($reply);
 	}
 }
