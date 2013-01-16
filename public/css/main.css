@@ -102,6 +102,7 @@ h1 {
 
 .boost_table img{
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 .boost_table {
@@ -116,6 +117,15 @@ h1 {
 	cursor: pointer;
 	height: 20px;
 	width: 20px;
+}
+
+.small {
+	font-size: 0.8em;
+}
+
+#heating, #water {
+	height: 40px;
+	width: 40px;
 }
 
 /* css for timepicker */

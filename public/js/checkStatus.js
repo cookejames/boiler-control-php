@@ -1,13 +1,44 @@
 function updateImages(json) {
-	if(json.Heating == "ON") {
-		$('#heatingBoost').attr('src', '/images/on.png');
-	} else {
-		$('#heatingBoost').attr('src', '/images/off.png');
+	//Heating
+	if (json.Heating == "ON") {
+		$('#heating').attr('src', '/images/circle_green.png');
+	} else if (json.Heating == "OFF") {
+		$('#heating').attr('src', '/images/circle_red.png');
 	}
-	if(json.Water == "ON") {
+
+	//Water
+	if (json.Water == "ON") {
+		$('#water').attr('src', '/images/circle_green.png');
+	} else if (json.Water == "OFF") {
+		$('#water').attr('src', '/images/circle_red.png');
+	}
+	
+	//Heating Boost
+	if (json.HeatingBoost == "ON") {
+		$('#heatingBoost').attr('src', '/images/on.png');
+		if (typeof json.HeatingBoostTime !== "undefined") {
+			var timestamp = parseInt(json.HeatingBoostTime);
+			var now = new Date().getTime();
+			var remaining = Math.round( (timestamp - now) / 1000 / 60 );
+			$('#heatingBoostTime').html(remaining + " minutes");
+		}
+	} else if (json.HeatingBoost == "OFF") {
+		$('#heatingBoost').attr('src', '/images/off.png');
+		$('#heatingBoostTime').html("");
+	}
+	
+	//Water Boost
+	if (json.WaterBoost == "ON") {
 		$('#waterBoost').attr('src', '/images/on.png');
-	} else {
+		var t = json.WaterBoostTime;
+		if (typeof json.WaterBoostTime !== "undefined") {
+			var timestamp = parseInt(json.WaterBoostTime);
+			var date = new Date(timestamp);
+			$('#waterBoostTime').html(date.getHours() + ":" + date.getMinutes());
+		}
+	} else if (json.WaterBoost == "OFF") {
 		$('#waterBoost').attr('src', '/images/off.png');
+		$('#waterBoostTime').html("");
 	}
 }
 
