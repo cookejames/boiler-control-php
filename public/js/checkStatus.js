@@ -1,21 +1,25 @@
+function updateImages(json) {
+	if(json.Heating == "ON") {
+		$('#heatingBoost').attr('src', '/images/on.png');
+	} else {
+		$('#heatingBoost').attr('src', '/images/off.png');
+	}
+	if(json.Water == "ON") {
+		$('#waterBoost').attr('src', '/images/on.png');
+	} else {
+		$('#waterBoost').attr('src', '/images/off.png');
+	}
+}
+
 function checkStatus() {
 	$.getJSON("/api/heating/status/", function(json) {
 		if(json.Result == "OK") {
-			if(json.Heating == "ON") {
-				$('#heatingBoost').attr('src', '/images/on.png');
-			} else {
-				$('#heatingBoost').attr('src', '/images/off.png');
-			}
-			if(json.Water == "ON") {
-				$('#waterBoost').attr('src', '/images/on.png');
-			} else {
-				$('#waterBoost').attr('src', '/images/off.png');
-			}
+			updateImages(json);
 		} else {
 			alert(json.Message);
 		}
 	});
-	t = setTimeout('checkStatus()', 10000);
+	t = setTimeout('checkStatus()', 30000);
 }
 $(document).ready(checkStatus());
 
@@ -33,6 +37,7 @@ $(document).ready(function() {
 	$('#heatingBoost').click(function() {
 		$.post("/api/heating/boost/toggle/heating", function(json) {
 			if (json.Result == "OK") {
+				updateImages(json);
 				$dialog.html("Heating boost set");
 			} else {
 				$dialog.html("Oops something went wrong");
@@ -46,6 +51,7 @@ $(document).ready(function() {
 	$('#waterBoost').click(function() {
 		$.post("/api/heating/boost/toggle/water", function(json) {
 			if (json.Result == "OK") {
+				updateImages(json);
 				$dialog.html("Hot water boost set");
 			} else {
 				$dialog.html("Oops something went wrong");
