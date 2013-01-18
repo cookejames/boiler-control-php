@@ -14,6 +14,7 @@ class Api_HeatingController extends Zend_Controller_Action
 	{
 		
 		$data = $this->_getParam('toggle');
+		$time = $this->_getParam('time');
 		$key = "";
 	
 		$output = array();
@@ -24,9 +25,9 @@ class Api_HeatingController extends Zend_Controller_Action
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Incorrect request method";
 		} else if ($data == "heating") {
-			$output = $this->_model->setBoostHeating("60");
+			$output = $this->_model->setBoostHeating($time);
 		} else if ($data == "water") {
-			$output = $this->_model->setBoostWater("60");
+			$output = $this->_model->setBoostWater($time);
 		} else {
 			$output['Result'] = "ERROR";
 			$output['Message'] = "Invalid toggle item";

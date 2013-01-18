@@ -20,3 +20,35 @@
 </tr>
 </table>
 </div>
+
+<div id="heating-boost-dialog" title="Set Heating Boost">
+  <form>
+  <fieldset>
+    <label for="heatTime">Boost Time:</label>
+    <select name="time" id="heatTime">
+    	<?php 
+    	$default = 60;
+    	for ($i = 10; $i <= 180; $i = $i + 10) :
+    	?>
+    	<option value="<?php echo $i?>" <?php if ($i == $default) echo 'selected="selected"'?>><?php echo $i?> minutes</option>
+    	<?php endfor; ?>
+    </select>
+  </fieldset>
+  </form>
+</div>
+
+<div id="water-boost-dialog" title="Set Water Boost">
+  <form>
+  <fieldset>
+    <label for="waterTime">Boost Time:</label>
+    <select name="time" id="waterTime">
+    	<?php 
+    	$default = 60;
+    	for ($i = 10; $i <= 180; $i = $i + 10) :
+    	?>
+    	<option value="<?php echo $i?>" <?php if ($i == $default) echo 'selected="selected"'?>><?php echo $i?> minutes</option>
+    	<?php endfor; ?>
+    </select>
+  </fieldset>
+  </form>
+</div>

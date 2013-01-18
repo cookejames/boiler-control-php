@@ -33,8 +33,9 @@ function updateImages(json) {
 		var t = json.WaterBoostTime;
 		if (typeof json.WaterBoostTime !== "undefined") {
 			var timestamp = parseInt(json.WaterBoostTime);
-			var date = new Date(timestamp);
-			$('#waterBoostTime').html(date.getHours() + ":" + date.getMinutes());
+			var now = new Date().getTime();
+			var remaining = Math.round( (timestamp - now) / 1000 / 60 );
+			$('#waterBoostTime').html(remaining + " minutes");
 		}
 	} else if (json.WaterBoost == "OFF") {
 		$('#waterBoost').attr('src', '/images/off.png');
@@ -54,42 +55,45 @@ function checkStatus() {
 }
 $(document).ready(checkStatus());
 
+function setupDialog(dialogId, postName, timeId, buttonId) {
+    $( dialogId ).dialog({
+        autoOpen: false,
+        height: 150,
+        width: 250,
+        modal: true,
+        buttons: {
+          "Toggle": function() {
+        	  $.post("/api/heating/boost/toggle/" + postName +"/time/" + 
+        			  $(timeId).val(), function(json) {
+      			if (json.Result == "OK") {
+      				updateImages(json);
+      			} else {
+      				$dialog.html("Oops something went wrong");
+      			}
+      		}, "json");
+              $( this ).dialog( "close" );
+          },
+          "Cancel": function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        close: function() {
+          $(timeId).val( "60" );
+        }
+      });
+	
+	$(buttonId).click(function() {
+		if ($(buttonId).attr('src') == '/images/on.png') {
+			$(timeId).prop('disabled', true);
+		} else if ($(buttonId).attr('src') == '/images/off.png') {
+			$(timeId).prop('disabled', false);
+		}
+		
+		$( dialogId ).dialog( "open" );
+	});
+}
+
 $(document).ready(function() {
-
-	var $loading = "Toggling...";
-	var $dialog = $('<div></div>')
-		.html($loading)
-		.dialog({
-			autoOpen: false,
-			title: 'Toggling Boost',
-			close: function(ev, ui) { $(this).html($loading); }
-		});
-
-	$('#heatingBoost').click(function() {
-		$.post("/api/heating/boost/toggle/heating", function(json) {
-			if (json.Result == "OK") {
-				updateImages(json);
-				$dialog.html("Heating boost set");
-			} else {
-				$dialog.html("Oops something went wrong");
-			}
-		}, "json");
-		$dialog.dialog('open');
-		// prevent the default action, e.g., following a link
-		return false;
-	});
-
-	$('#waterBoost').click(function() {
-		$.post("/api/heating/boost/toggle/water", function(json) {
-			if (json.Result == "OK") {
-				updateImages(json);
-				$dialog.html("Hot water boost set");
-			} else {
-				$dialog.html("Oops something went wrong");
-			}
-		}, "json");
-		$dialog.dialog('open');
-		// prevent the default action, e.g., following a link
-		return false;
-	});
+	setupDialog("#heating-boost-dialog", "heating", "#heatTime", "#heatingBoost");
+	setupDialog("#water-boost-dialog", "water", "#waterTime", "#waterBoost");
 });
