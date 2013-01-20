@@ -4,6 +4,8 @@ The frontend to the boiler control program (https://github.com/james-jaynne/boil
 
 This requires the Zend Framework (http://framework.zend.com/) installed to run.
 
+For support please use this Raspberry Pi forum thread http://www.raspberrypi.org/phpBB3/viewtopic.php?f=37&t=22244
+
 Install Instructions
 ==================
 This is a two stage process as the program is in two parts - a web frontend and a java program that does the actual controlling. The control is in java as I felt it was more stable for a long running process that I want 100% uptime on like my heating!

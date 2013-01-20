@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2012 at 07:44 AM
--- Server version: 5.1.63
+-- Generation Time: Jan 19, 2013 at 12:16 PM
+-- Server version: 5.1.66
 -- PHP Version: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `pi`
@@ -25,6 +19,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `configuration`
 --
 
+DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE IF NOT EXISTS `configuration` (
   `key` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `value` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -38,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `configuration` (
 -- Table structure for table `schedule`
 --
 
+DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE IF NOT EXISTS `schedule` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group` smallint(6) unsigned NOT NULL,
@@ -62,12 +58,13 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 -- Table structure for table `schedule_groups`
 --
 
+DROP TABLE IF EXISTS `schedule_groups`;
 CREATE TABLE IF NOT EXISTS `schedule_groups` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Constraints for dumped tables
